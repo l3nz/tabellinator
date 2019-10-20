@@ -9,3 +9,10 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
+
+*.swp
+.cli-kondo-cache/
+.idea/
+*.iml
+
+

@@ -1,6 +1,7 @@
 # tabellinator
 
-A Clojure library designed to ... well, that part is up to you.
+Prepara una pagina  di tabelline miste, creando un foglio 
+HTML che può esere stampato.
 
 ## Usage
 
@@ -8,7 +9,5 @@ FIXME
 
 ## License
 
-Copyright © 2019 FIXME
+MIT
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
