@@ -1,4 +1,4 @@
-(defproject tabellinator "0.1.1"
+(defproject tabellinator "0.1.2"
   :description "Quante belle tabelline"
   :url "https://github.com/l3nz/tabellinator"
   :license {:name "MIT"}

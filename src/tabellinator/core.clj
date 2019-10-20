@@ -14,10 +14,11 @@
 
 
 (defn style
-  "For hiccup - see "
+  "For hiccup"
   [s]
   {:style
-   (str/join ";" (map #(str (name %) ":" ((keyword %) s)) (keys s)))})
+   (str/join ";" (map #(str (name %) ":" ((keyword %) s))
+                      (keys s)))})
 
 (defn rndIncluding
   [min max]
@@ -86,11 +87,29 @@
           (take nEntries cache)
 
           ; ne mancano, ma ho già fatto troppi giri
-          (< 5 nLoop)
+          (< 20 nLoop)
           (take nEntries cache)
 
           :else
           (recur cache (inc nLoop)))))))
+
+(defn creaDatiTabella
+  "Crea una sequenza di righe, ciascuna delle
+  quali ha non più di 'columns'.
+  Nota che a seconda del generatore, potrei
+  avere meno dati di quelli richiesti.
+  "
+  [fnInput parametri rows columns]
+  (let [fnDaApplicare (fn [] (fnInput parametri))
+        entries (* rows columns)
+        allEntries (take-unique fnDaApplicare entries)
+        allRows  (partition columns columns [] allEntries)]
+
+    (prn (str "Richiesto: " entries " entries"
+              " (" rows "*" columns ")"))
+    (prn (str "Ottenuto: " (count allEntries)))
+    (prn (str "Righe: " (count allRows)))
+    allRows))
 
 (defn asHtmlCalculation
   "Creo un PRE html con l'operazione ed il
@@ -105,11 +124,7 @@
   "
   [fnInput {:keys [:columns :rows] :as parametri}]
 
-  (let [fnDaApplicare (fn [] (fnInput parametri))
-        entries (* rows columns)
-        allEntries (take-unique fnDaApplicare entries)
-        allRows (partition columns columns [] allEntries)]
-
+  (let [allRows (creaDatiTabella fnInput parametri rows columns)]
     [:table
      (for [r allRows]
        [:tr
@@ -119,12 +134,12 @@
            (asHtmlCalculation e parametri)])])]))
 
 (defn salvaHtml
-  [fnInput {:keys [:file] :as parametri}]
+  [titolo fnInput {:keys [:file] :as parametri}]
 
   (let [tbl (creaTabella fnInput parametri)
         pg [:html
             [:body
-             [:h1 "Tabellina"]
+             [:h1 titolo]
              tbl]]
         txt (html pg)]
 
@@ -144,29 +159,31 @@
                  {:option  "columns"
                   :as      "Il numero di colonne"
                   :type    :int
-                  :default 3}
+                  :default 4}
 
                  {:option  "rows"
                   :as      "Il numero di righe per colonna"
                   :type    :int
-                  :default 30}
+                  :default 16}
 
                  {:option  "fontsize"
-                  :as      "Il numero di righe per colonna"
+                  :as      "La dimensione del font"
                   :type    :int
                   :default 15}]
 
    :commands    [{:command     "muls"
                   :description "Le moltiplicazioni classiche"
                   :opts        [{:option "min" :as "Minimo" :type :int :default 0}
-                                {:option "max" :as "Massimo" :type :int :default 11}]
-                  :runs        (partial salvaHtml multiplications)}
+                                {:option "max" :as "Massimo" :type :int :default 12}]
+                  :runs        (partial salvaHtml "Tabelline"
+                                        multiplications)}
 
                  {:command     "divsimpl"
                   :description "Divisioni senza resto"
-                  :opts        [{:option "min" :as "Minimo" :type :int :default 0}
+                  :opts        [{:option "min" :as "Minimo" :type :int :default 1}
                                 {:option "max" :as "Massimo" :type :int :default 11}]
-                  :runs        (partial salvaHtml divisioni-semplici)}]})
+                  :runs        (partial salvaHtml "Divisioni senza resto"
+                                        divisioni-semplici)}]})
 
 (defn -main
   "This is our entry point.
