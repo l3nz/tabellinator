@@ -1,8 +1,8 @@
-(defproject tabellinator "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+(defproject tabellinator "0.1.1"
+  :description "Quante belle tabelline"
   :url "https://github.com/l3nz/tabellinator"
   :license {:name "MIT"}
-  ;:main "tabellinator.core"
+  :main tabellinator.core
 
   :aliases {"fix" ["cljfmt" "fix"]
             ; Kondo
@@ -28,5 +28,6 @@
             [lein-ancient "0.6.15"]]
 
   :profiles {:kondo
-             {:dependencies [[org.clojure/clojure "1.10.1"]
-                             [clj-kondo "2019.07.05-alpha"]]}})
+             {:dependencies
+              [[org.clojure/clojure "1.10.1"]
+               [clj-kondo "2019.10.11-alpha"]]}})

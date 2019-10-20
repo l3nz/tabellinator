@@ -1,5 +1,5 @@
 (ns tabellinator.core-test
-  (:require [clojure.test :refer [deftest is are]]
+  (:require [clojure.test :refer [deftest is]]
             [tabellinator.core :refer [style]]))
 
 (deftest style-test

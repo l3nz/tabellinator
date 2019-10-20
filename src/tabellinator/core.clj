@@ -1,4 +1,5 @@
 (ns tabellinator.core
+  (:gen-class)
   (:require
    [clojure.string :as str]
    [hiccup.core :refer [html]]
