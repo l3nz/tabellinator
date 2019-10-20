@@ -1,7 +1,11 @@
 (ns tabellinator.core-test
-  (:require [clojure.test :refer :all]
-            [tabellinator.core :refer :all]))
+  (:require [clojure.test :refer [deftest is are]]
+            [tabellinator.core :refer [style]]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+
+
+
+(deftest style-test
+  (is (= {:style "font-color:red;font-size:12px"}
+         (style {:font-color "red"
+                 :font-size "12px"}))))

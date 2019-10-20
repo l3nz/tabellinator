@@ -2,7 +2,7 @@
   :description "FIXME: write description"
   :url "https://github.com/l3nz/tabellinator"
   :license {:name "MIT"}
-  :main "tabellinator.core"
+  ;:main "tabellinator.core"
 
   :aliases {"fix" ["cljfmt" "fix"]
             ; Kondo
